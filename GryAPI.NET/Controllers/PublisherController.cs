@@ -39,5 +39,23 @@ namespace GryAPI.NET.Controllers
             await dbContext.SaveChangesAsync();
             return Ok(publisher);
         }
+
+
+        [HttpPut]
+        [Route("{id:guid}")]
+        public async Task<IActionResult> UpdatePublisher([FromRoute] Guid id, UpdatePublisher updatePublisher)
+        {
+            var publisher = await dbContext.Publishers.FindAsync(id);
+            if (publisher != null)
+            {
+                publisher.Name = updatePublisher.Name;
+                publisher.Country = updatePublisher.Country;
+                publisher.NumberOfEmployees = updatePublisher.NumberOfEmployees;
+
+                await dbContext.SaveChangesAsync();
+                return Ok(publisher);
+            }
+            return NotFound();
+        }
     }
 }

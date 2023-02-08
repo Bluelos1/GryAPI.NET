@@ -38,5 +38,21 @@ namespace GryAPI.NET.Controllers
             await dbContext.SaveChangesAsync();
             return Ok(genre);
         }
+
+        [HttpPut]
+        [Route("{id:guid}")]
+        public async Task<IActionResult> UpdateGenre([FromRoute] Guid id, UpdateGenre updateGenre)
+        {
+            var genre = await dbContext.Genres.FindAsync(id);
+            if (genre != null)
+            {
+                genre.Name = updateGenre.Name;
+                genre.AltName = updateGenre.AltName;
+
+                await dbContext.SaveChangesAsync();
+                return Ok(genre);
+            }
+            return NotFound();
+        }
     }
 }

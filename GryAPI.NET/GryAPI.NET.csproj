@@ -10,6 +10,7 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.2" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.11" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -18,6 +19,7 @@
     <None Remove="Data\" />
     <None Remove="Microsoft.AspNetCore.Mvc.Core" />
     <None Remove="Microsoft.VisualStudio.Web.CodeGeneration.Design" />
+    <None Remove="Npgsql.EntityFrameworkCore.PostgreSQL" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
