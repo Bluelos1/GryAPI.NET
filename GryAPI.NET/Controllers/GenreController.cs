@@ -25,6 +25,19 @@ namespace GryAPI.NET.Controllers
             return Ok(dbContext.Genres.ToList());
         }
 
+        [HttpGet]
+        [Route("{id;guid}")]
+        public async Task<IActionResult> GetOneGenreById([FromRoute]Guid id)
+        {
+            var genre = await dbContext.Genres.FindAsync(id);
+
+            if (genre == null)
+            {
+                return NotFound();
+            }
+            return Ok(genre);
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateGenre(CreateGenre createGenre)
         {
@@ -49,6 +62,21 @@ namespace GryAPI.NET.Controllers
                 genre.Name = updateGenre.Name;
                 genre.AltName = updateGenre.AltName;
 
+                await dbContext.SaveChangesAsync();
+                return Ok(genre);
+            }
+            return NotFound();
+        }
+
+        [HttpDelete]
+        [Route("{id:guid}")]
+        public async Task<IActionResult> DeleteGenreById([FromRoute] Guid id)
+        {
+            var genre = await dbContext.Genres.FindAsync(id);
+
+            if (genre != null)
+            {
+                dbContext.Remove(genre);
                 await dbContext.SaveChangesAsync();
                 return Ok(genre);
             }

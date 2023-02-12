@@ -27,6 +27,20 @@ namespace GryAPI.NET.Controllers
              
         }
 
+        [HttpGet]
+        [Route("{id:guid}")]
+        public async Task<IActionResult> GetOneGameById([FromRoute]Guid id)
+        {
+            var game = await dbContext.Games.FindAsync(id);
+
+            if (game == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(game);
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateGame(CreateGame createGame)
         {
@@ -59,6 +73,21 @@ namespace GryAPI.NET.Controllers
                 return Ok(game);
             }
 
+            return NotFound();
+        }
+
+        [HttpDelete]
+        [Route("{id:guid}")]
+        public async Task <IActionResult> DeleteGame([FromRoute] Guid id)
+        {
+                var game = await dbContext.Games.FindAsync(id);
+
+            if (game != null)
+            {
+                dbContext.Remove(game);
+                await dbContext.SaveChangesAsync();
+                return Ok(game);
+            }
             return NotFound();
         }
     }

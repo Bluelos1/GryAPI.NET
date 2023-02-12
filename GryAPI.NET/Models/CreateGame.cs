@@ -1,7 +1,7 @@
 ﻿using System;
 namespace GryAPI.NET.Models
 {
-	public class CreateGame
+	public class CreateGame 
 	{
         public string Title { get; set; }
 

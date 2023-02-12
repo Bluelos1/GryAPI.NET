@@ -25,6 +25,19 @@ namespace GryAPI.NET.Controllers
             return Ok(await dbContext.Publishers.ToListAsync());
         }
 
+        [HttpGet]
+        [Route("{guid:id}")]
+        public async Task<IActionResult> GetOnePublisherById([FromRoute] Guid id)
+        {
+            var publisher = await dbContext.Publishers.FindAsync(id);
+
+            if (publisher == null)
+            {
+                return NotFound();
+            }
+            return Ok(publisher);
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreatePublisher(CreatePublisher createPublisher)
         {
@@ -52,6 +65,20 @@ namespace GryAPI.NET.Controllers
                 publisher.Country = updatePublisher.Country;
                 publisher.NumberOfEmployees = updatePublisher.NumberOfEmployees;
 
+                await dbContext.SaveChangesAsync();
+                return Ok(publisher);
+            }
+            return NotFound();
+        }
+        [HttpDelete]
+        [Route("{id:guid}")]
+        public async Task<IActionResult> DeletePublisher([FromRoute] Guid id)
+        {
+            var publisher = await dbContext.Publishers.FindAsync(id);
+
+            if (publisher != null)
+            {
+                dbContext.Remove(publisher);
                 await dbContext.SaveChangesAsync();
                 return Ok(publisher);
             }
