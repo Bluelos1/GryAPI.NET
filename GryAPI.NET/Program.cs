@@ -10,9 +10,13 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<GameAPIDbContext>(options => options.UseInMemoryDatabase("GamesDb"));
-builder.Services.AddDbContext<GenreAPIDbContext>(options => options.UseInMemoryDatabase("GenreDb"));
-builder.Services.AddDbContext<PublisherAPIDbContext>(options => options.UseInMemoryDatabase("PublisherDb"));
+builder.Services.AddDbContext<GameAPIDbContext>(options =>
+{
+    options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+    options.UseNpgsql(builder.Configuration.GetConnectionString("GameAPIDbContext"));
+});
+
+
 
 var app = builder.Build();
 
@@ -23,11 +27,18 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+
 app.UseHttpsRedirection();
+
+app.UseRouting();
 
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
 

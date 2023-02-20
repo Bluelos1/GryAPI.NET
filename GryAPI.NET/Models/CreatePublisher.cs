@@ -9,9 +9,8 @@ namespace GryAPI.NET.Models
 
         public int NumberOfEmployees { get; set; }
 
-        public CreatePublisher()
-		{
-		}
+        
+        
 	}
 }
 

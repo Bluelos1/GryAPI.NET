@@ -42,18 +42,19 @@ namespace GryAPI.NET.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateGame(CreateGame createGame)
+        public async Task<IActionResult> CreateGame([FromBody]CreateGame createGame)
         {
-            Game game = new Game()
+            var game = new Game
             {
-                Id = Guid.NewGuid(),
                 Title = createGame.Title,
                 PublishYear = createGame.PublishYear,
-                Publisher = createGame.Publisher,
-                Genre = createGame.Genre
+                GenreId = createGame.GenreId,
+                PublisherId = createGame.PublisherId
             };
-            await dbContext.Games.AddAsync(game);
-            await dbContext.SaveChangesAsync();
+
+            dbContext.Games.Add(game);
+            dbContext.SaveChanges();
+
             return Ok(game);
         }
 
@@ -66,8 +67,8 @@ namespace GryAPI.NET.Controllers
             {
                 game.Title = updateGame.Title;
                 game.PublishYear = updateGame.PublishYear;
-                game.Publisher = updateGame.Publisher;
-                game.Genre = updateGame.Genre;
+                game.PublisherId = updateGame.PublisherId;
+                game.GenreId = updateGame.GenreId;
 
                 await dbContext.SaveChangesAsync();
                 return Ok(game);

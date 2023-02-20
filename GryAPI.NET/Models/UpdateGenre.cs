@@ -7,9 +7,9 @@ namespace GryAPI.NET.Models
 
         public string AltName { get; set; }
 
-        public UpdateGenre()
-		{
-		}
+
+
+        
 	}
 }
 

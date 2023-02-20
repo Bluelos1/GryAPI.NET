@@ -12,9 +12,9 @@ namespace GryAPI.NET.Controllers
     [Route("api/genre")]
     public class GenreController : Controller
     {
-        private readonly GenreAPIDbContext dbContext;
+        private readonly GameAPIDbContext dbContext;
 
-        public GenreController(GenreAPIDbContext dbContext)
+        public GenreController(GameAPIDbContext dbContext)
         {
             this.dbContext = dbContext;
         }
@@ -26,7 +26,7 @@ namespace GryAPI.NET.Controllers
         }
 
         [HttpGet]
-        [Route("{id;guid}")]
+        [Route("{id:guid}")]
         public async Task<IActionResult> GetOneGenreById([FromRoute]Guid id)
         {
             var genre = await dbContext.Genres.FindAsync(id);

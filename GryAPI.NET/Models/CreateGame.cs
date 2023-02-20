@@ -7,13 +7,11 @@ namespace GryAPI.NET.Models
 
         public string PublishYear { get; set; }
 
-        public Publisher Publisher { get; set; }
+        public Guid PublisherId { get; set; }
 
-        public Genre Genre { get; set; }
+        public Guid GenreId { get; set; }
 
-        public CreateGame()
-		{
-		}
-	}
+       
+    }
 }
 

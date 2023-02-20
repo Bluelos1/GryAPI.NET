@@ -13,9 +13,9 @@ namespace GryAPI.NET.Controllers
     [Route("api/publisher")]
     public class PublisherController : Controller
     {
-        private readonly PublisherAPIDbContext dbContext;
+        private readonly GameAPIDbContext dbContext;
 
-        public PublisherController(PublisherAPIDbContext dbContext)
+        public PublisherController(GameAPIDbContext dbContext)
         {
             this.dbContext = dbContext;
         }
@@ -26,7 +26,7 @@ namespace GryAPI.NET.Controllers
         }
 
         [HttpGet]
-        [Route("{guid:id}")]
+        [Route("{id:guid}")]
         public async Task<IActionResult> GetOnePublisherById([FromRoute] Guid id)
         {
             var publisher = await dbContext.Publishers.FindAsync(id);

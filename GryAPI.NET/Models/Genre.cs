@@ -8,7 +8,8 @@ namespace GryAPI.NET.Models
 	public class Genre
 	{
 		[Key, Required]
-		public Guid Id { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Guid Id { get; set; }
 		[Required]
 		public string Name { get; set; }
 
@@ -16,9 +17,6 @@ namespace GryAPI.NET.Models
 
 		public List<Game> Games { get; set; }
 
-		public Genre()
-		{
-		}
 	}
 }
 
